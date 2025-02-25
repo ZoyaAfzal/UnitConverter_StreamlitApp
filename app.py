@@ -1,14 +1,44 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-# Apply custom styling
+# Apply dark theme custom styling with animated headings
 st.markdown(
     """
     <style>
-        body { font-family: Arial, sans-serif; }
-        .stButton>button { background-color: #4285F4; color: white; font-size: 16px; padding: 10px; border-radius: 5px; }
-        .stSelectbox, .stNumberInput { font-size: 16px; }
-        .stMarkdown { text-align: center; }
+        @keyframes colorChange {
+            50% { color: white; }
+            0% { color: #B22222 }
+            100% { color: #66b3ff }
+        }
+        body { 
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif; 
+        }
+        h1, h2, h3 { 
+            animation: colorChange 3s infinite alternate;
+            text-align: center;
+        }
+        .stButton>button { 
+            background-color: #1E88E5; 
+            color: white; 
+            font-size: 16px; 
+            padding: 12px; 
+            border-radius: 8px; 
+            border: none;
+            transition: 0.3s ease;
+        }
+        .stButton>button:hover { 
+            background-color: #1565C0;
+        }
+        .stSelectbox, .stNumberInput { 
+            font-size: 16px; 
+            background-color: #1E1E1E;
+            color: white;
+        }
+        .stMarkdown { 
+            text-align: center;
+        }
     </style>
     """,
     unsafe_allow_html=True,
@@ -76,7 +106,7 @@ def convert_units(value, from_unit, to_unit, category):
     else:
         return value * (conversion_factors[category][to_unit] / conversion_factors[category][from_unit])
 
-st.title("🔄 Unit Converter")
+st.title("🔄 Quick & Easy Unit Converter")
 st.markdown("### 📏⚖️🌡️ Convert units easily with an intuitive interface")
 
 # Dropdown for category selection
@@ -100,7 +130,22 @@ value = st.number_input("✏️ Enter value", min_value=0.0, format="%.5f")
 # Conversion
 if st.button("🔄 Convert"):
     result = convert_units(value, from_unit, to_unit, category)
-    st.success(f"✅ {value} {from_unit} = {result:.5f} {to_unit}")
+    #st.success(f"✅ {value} {from_unit} = {result:.5f} {to_unit}")
+    st.markdown(
+    f"""
+    <div style="
+        background-color: #3b82f6;  /* Change to any color */
+        padding: 12px;
+        border-radius: 6px;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        font-size: 16px;">
+        ✅ {value} {from_unit} = {result: .5f} {to_unit}
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # Footer
 st.markdown("---")
