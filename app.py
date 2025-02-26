@@ -5,39 +5,106 @@ import streamlit.components.v1 as components
 st.markdown(
     """
     <style>
+        [data-testid="stAppViewContainer"] {
+            background: linear-gradient(135deg, black, black) !important;
+            color: white !important;
+        }
+
+        /* General text styling */
+        html, body, [data-testid="stAppViewContainer"] * {
+            color: #E0E0E0 !important;
+            font-family: 'Arial', sans-serif !important;
+        }
+        /* Animated heading with blue gradient */
         @keyframes colorChange {
+            0% { color: #008080; }  /* Teal */
             50% { color: white; }
-            0% { color: #B22222 }
-            100% { color: #66b3ff }
+            100% { color: #00FFFF; }  /* Cyan */
         }
-        body { 
-            background-color: #121212;
-            color: white;
-            font-family: Arial, sans-serif; 
+        /* Sidebar (navbar) black */
+        [data-testid="stSidebar"] {
+        background-color: black !important;
+        color: white !important;
+        border-right: 2px solid #FFD700 !important;
         }
-        h1, h2, h3 { 
-            animation: colorChange 3s infinite alternate;
+
+
+        h1 { 
+        color: #FFD700 !important; /* Gold */
+        text-align: center !important;
+        font-weight: bold !important;
+        font-size: 40px !important;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        }
+
+        h2, h3 {
+            color: #56CCF2; /* Light Blue */
             text-align: center;
         }
+        [data-testid="stSidebar"] {
+        background-color: black !important;
+        color: white !important;
+        border-right: 2px solid #FFD700 !important; /* Gold border */
+        }
+        select {
+        background-color: black !important;
+        color: white !important;
+        }
+
+        .stSelectbox:hover, .stNumberInput:hover, .stTextInput:hover, .stTextArea:hover {
+            border-color: #4A90E2 !important;
+        }
+            /* Input fields black */
+        .stSelectbox, .stNumberInput, .stTextInput, .stTextArea {
+            background-color: black !important;
+            color: #E0E0E0 !important;
+            border-radius: 8px !important;
+            padding: 8px !important;
+            border: 1px solid #444 !important;
+            transition: all 0.3s ease-in-out !important;
+        }
+
+        /* Improve label visibility */
+        .stSelectbox label, .stNumberInput label, .stTextInput label, .stTextArea label {
+            color: white !important;
+            font-weight: bold !important;
+            font-size: 16px !important;
+        }
+
+        /* Modern button with purple gradient */
         .stButton>button { 
-            background-color: #1E88E5; 
-            color: white; 
-            font-size: 16px; 
-            padding: 12px; 
-            border-radius: 8px; 
-            border: none;
-            transition: 0.3s ease;
+            background: linear-gradient(90deg, #7B1FA2, #D500F9) !important;  Deep Purple → Neon Pink 
+            color: white !important; 
+            font-size: 16px !important; 
+            padding: 12px !important; 
+            border-radius: 8px !important; 
+            font-weight: bold !important;
+            transition: transform 0.2s ease-in-out, background 0.3s ease-in-out !important;
+            border: none !important;
         }
-        .stButton>button:hover { 
-            background-color: #1565C0;
-        }
-        .stSelectbox, .stNumberInput { 
-            font-size: 16px; 
-            background-color: #1E1E1E;
-            color: white;
-        }
-        .stMarkdown { 
+        .gradient-heading {
+            background: linear-gradient(90deg, #7B1FA2, #D500F9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 32px;
+            font-weight: bold;
             text-align: center;
+        }
+
+        .stButton>button:hover { 
+            transform: scale(1.05);
+            background: linear-gradient(90deg, #D500F9, #7B1FA2) !important; /* Neon Pink → Deep Purple */
+        }
+
+        /* Center markdown content */
+        .stMarkdown { 
+            text-align: center !important;
+        }
+
+        /* Divider styling */
+        hr {
+            border: 1px solid #444 !important;
         }
     </style>
     """,
@@ -105,8 +172,28 @@ def convert_units(value, from_unit, to_unit, category):
         return value  # Same unit
     else:
         return value * (conversion_factors[category][to_unit] / conversion_factors[category][from_unit])
+st.markdown(
+    """
+<style>
+    .gradient-title {
+        background: linear-gradient(90deg, #7B1FA2, #D500F9);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 2rem;
+        font-weight: bold;
+        display: inline-block;
+    }
+    .blue-icon {
+        color: #007bff; /* Blue color */
+        font-size: 2rem;
+    }
+</style>
 
-st.title("🔄 Quick & Easy Unit Converter")
+<h1><span class="blue-icon">🔄</span> <span class="gradient-title">Quick Unit Converter</span></h1>
+""",
+unsafe_allow_html=True
+)
+
 st.markdown("### 📏⚖️🌡️ Convert units easily with an intuitive interface")
 
 # Dropdown for category selection
